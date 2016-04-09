@@ -39,6 +39,7 @@ class Student(UserEntity,Model):
 	rollno = CharField(max_length=20)
 	batch = CharField(max_length=20, choices=model_choices['BATCH'])
 	branch = CharField(max_length=20, choices=model_choices['BRANCH'])
+	default_mess = ForeignKey(Mess)
 class NonStudent(UserEntity,Model):		
 	nstype = CharField(max_length=20, choices=model_choices['NON_STUDENT_TYPE'])
 	

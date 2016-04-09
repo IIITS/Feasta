@@ -123,5 +123,5 @@ STATIC_URL = '/static/'
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/accounts/home/'
 LOGOUT_URL = '/accounts/login/'
-MEDIA_ROOT = STATIC_ROOT
+MEDIA_ROOT = os.path.join(BASE_DIR)
 MEDIA_URL = '/media/'

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	{% include 'resources.html'	%}
+	<body>
+		{%block topfold %}
+		<div class="container-fluid topfold">
+			
+		</div>
+		{% endblock %}
+		{% block navbar %}
+		<div class="container-fluid feasta-navbar">
+			<ul>
+				<li>
+					MY ACCOUNT
+				</li>
+				<li>
+					VIEW MENU
+				</li>
+				<li>
+					UNREGISTER
+				</li>
+				<li>
+					BULK UNREGISTER
+				</li>
+			</ul>
+		</div>
+		{% endblock %}
+		{% block statistics %}
+		<div class="container-fluid feasta-stats">
+			<div class="row feasta-mar">
+				<div class="stats col-lg-1 col-sm-1 col-xs-1 col-md-1">
+					<i class="fa fa-4x fa-bed"></i>
+					<div>
+						BREAKFAST TODAY
+					</div>	
+				</div>	
+				<div class="col-lg-1 col-sm-1 col-xs-1 col-md-1 figure">
+						<div>400</div>
+						<span class="small-text">USERS</span>
+				</div>
+				<div class="stats col-lg-1 col-sm-1 col-xs-1 col-md-1">
+					<i class="fa fa-4x fa-hourglass-half"></i>
+					<div>
+						LUNCH TODAY
+					</div>	
+				</div>	
+				<div class="col-lg-1 col-sm-1 col-xs-1 col-md-1 figure">
+						<div>400</div>
+						<span class="small-text">USERS</span>
+				</div>
+				<div class="stats col-lg-1 col-sm-1 col-xs-1 col-md-1">
+					<i class="fa fa-4x fa-adjust"></i>
+					<div>
+						DINNER TODAY
+					</div>	
+				</div>	
+				<div class="col-lg-1 col-sm-1 col-xs-1 col-md-1 figure">
+						<div>400</div>
+						<span class="small-text">USERS</span>
+				</div>
+			
+				<center class="stats col-lg-1 col-sm-1 col-xs-1 col-md-1">
+					<i class="fa fa-4x fa-shopping-basket"></i>
+					<div>
+						UNREGISTERED
+					</div>
+					<div>
+						MEALS THIS
+					</div>
+					<div>
+					    SEMESTER
+					</div>
+				</center>	
+				<div class="col-lg-1 col-sm-1 col-xs-1 col-md-1 figure">
+						1450
+				</div>	
+					
+			</div>	
+				
+		</div>
+		{% endblock %}
+		{% block footer %}
+		 	<center style="padding:15px 0px; font-size:18px; color:#685036; "><span style="color:#101010;">Developed by&nbsp;&nbsp;</span> Sahal Sajjad&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bhavana Tangirala</center>
+		{% endblock %}
+	</body>
+</html>

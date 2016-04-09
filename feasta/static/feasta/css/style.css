@@ -1,0 +1,45 @@
+.feasta-mar{
+	margin-top:4vh;
+}
+.feasta-navbar{
+	background-color: white;
+	opacity: 0.6;
+	color:black;
+	margin-top:-10vh;
+	height:10vh;
+	padding-top: 2vh;
+	padding-bottom:2vh;
+}
+.feasta-navbar ul li{
+	display: inline;
+    margin: 0px 15px;
+    font-size: 22px;
+    font-weight: bold;
+}
+.feasta-stats{
+	background: #101010;
+	height:30vh;
+	color: #D0A443;
+}
+
+.feasta-stats ul li{
+	display: inline;list-style: none; font-size: 25px; color:white;
+	padding:30px;
+}
+.figure{
+	font-size: 40px;
+	color:white;
+}
+.small-text{
+    font-size: 10px;
+    position: absolute;
+    left: 5vh;
+    top: 8vh;
+}
+.stats{
+	margin-left: 5vw;
+}
+.topfold{
+	background-image: url('../images/coffee.jpg');
+	height: 60vh;
+}
