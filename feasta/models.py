@@ -24,14 +24,16 @@ class Meal(Model):
 	name = CharField(max_length=50, choices=model_choices['MEAL'])
 	starttime = TimeField(auto_now=False, auto_now_add=False)
 	endtime = TimeField(auto_now=False, auto_now_add=False)
-class Menu(Model):
-	meal = ForeignKey(Meal,on_delete=CASCADE)
-	day = CharField(max_length=20, choices=model_choices['WEEK_DAY'])
-	items = TextField(default='NA')
+
 class Mess(Model):
 	name = CharField(max_length=50)
 	vendors = TextField(default='NA')
 	description = TextField(default='NA')
+class Menu(Model):
+	mess=ForeignKey(Mess,on_delete=CASCADE)
+	meal = ForeignKey(Meal,on_delete=CASCADE)
+	day = CharField(max_length=20, choices=model_choices['WEEK_DAY'])
+	items = TextField(default='NA')	
 class Vendor(Model):
 	name = CharField(max_length=50)
 	description = TextField(default='NA')

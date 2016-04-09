@@ -1,45 +1,69 @@
-.feasta-mar{
-	margin-top:4vh;
+a{color:white;} a:hover{cursor:pointer;}
+.btn-white{color:#101010;background:white;}
+.content-wrapper{background: #101010;
+    min-height: 20vh;
+    height: auto;
+    margin-bottom: -40vh;
 }
-.feasta-navbar{
-	background-color: white;
-	opacity: 0.6;
-	color:black;
-	margin-top:-10vh;
-	height:10vh;
-	padding-top: 2vh;
-	padding-bottom:2vh;
+.feasta-abs{border:none;position:absolute;top:71vh;height:78px;left:60vw;border-radius:0px;padding:0px 20px;background:#7C603B;color:white;font-size:25px;}
+.feasta-blackfont{
+    color:black !important;
 }
-.feasta-navbar ul li{
-	display: inline;
-    margin: 0px 15px;
-    font-size: 22px;
-    font-weight: bold;
-}
-.feasta-stats{
-	background: #101010;
-	height:30vh;
-	color: #D0A443;
-}
-
-.feasta-stats ul li{
-	display: inline;list-style: none; font-size: 25px; color:white;
-	padding:30px;
-}
-.figure{
-	font-size: 40px;
-	color:white;
-}
-.small-text{
-    font-size: 10px;
+.feasta-btn{    width: 100%;
+    color: white;
+    font-size: 15px;
+    background: #D0A443;
+    border: none;
+    padding: 10px 2px;
+    font-variant: small-caps;
+    font-weight: bold;}
+.feasta-center{margin:0px 33vw 10px 33vw;width:33vw;}
+.feasta-content{    min-height: 50vh;
+    width: 70%;
+    padding: 5vh 10vw;
+    margin: 0px 15vw;
+    background: #101010;
     position: absolute;
-    left: 5vh;
-    top: 8vh;
-}
-.stats{
-	margin-left: 5vw;
-}
-.topfold{
-	background-image: url('../images/coffee.jpg');
-	height: 60vh;
-}
+    top: 10vh;
+    z-index: 3000;
+    height: auto;
+    color: white;}
+.feasta-mar{margin-top:4vh;}
+.feasta-navbar{background-color:white;opacity: 0.6;color:black;margin-top:-10vh;height:10vh;padding-top: 2vh;padding-bottom:2vh;}
+.feasta-navbar ul li{display: inline;margin: 0px 15px;font-size: 22px;font-weight: bold;}
+.feasta-navbar ul li a{color:#101010;}
+.feasta-navbar-fixed-top{position:absolute;background-color:white;opacity: 0.6;color:black;width:100%;margin-top:-60vh;height:10vh;padding-top: 2vh;padding-bottom:2vh;}
+.feasta-navbar-fixed-top ul li{display: inline;margin: 0px 15px;font-size: 22px;font-weight: bold;}
+.feasta-navbar-fixed-top ul li a{color:#101010;}
+.feasta-stats{background: #101010;height:30vh;color: #D0A443;}
+.feasta-stats ul li{display: inline;list-style: none; font-size: 25px; color:white;padding:30px;}
+.figure{font-size: 40px;color:white;}
+.footer{padding:15px 0px;font-size:18px;color:#685036;background: white;}
+.footer-name{color:#101010;}
+.form-control{border-radius: 0px;}
+.header-logo{font-size: 60px;font-variant:small-caps;color:white;font-weight:bold;padding:10vh 0vh 0vh 0vh;margin-left:20vh;}
+.header-logo-sub{color:white;margin-left:19vh;font-variant:small-caps;}
+.icon-span{color:white;float:right; padding:15px;} .icon-span a{color:white;}
+.nav-burger{position: absolute; z-index: 200;
+    z-index: 200;
+    left: 92vw;
+    top: 10vh;}
+.small-text{font-size:10px;position:absolute;left:5vh;top:8vh;}
+.stats{margin-left:5vw;} .stats a{color:#D0A443;}
+.topfold{background-image:url('../images/coffee.jpg');height:60vh;}
+#user-settings-burger{position:absolute;top:50px;left:83vw;width:15vw;background:white;color:#68503C;padding:15px 0px;border-radius:20px;}
+#user-settings-burger ul li{list-style: none;} #user-settings-burger ul li:hover{background:#68503C;color:white;}
+#user-settings-burger ul li a{color:#68503C;} #user-settings-burger ul li a:hover{color:white;}
+#user-settings-burger-non{
+        position: absolute;
+    top: 50px;
+    left: -9vw;
+    width: 15vw;
+    background: white;
+    color: #68503C;
+    padding: 0px;
+    border-radius: 20px;
+    font-size: 8px;
+    z-index: 3010 !important;}
+#user-settings-burger-non ul li{display: block;margin:10px 0px;font-size: 12px; } #user-settings-burger ul li:hover{background:#68503C;color:white;}
+#user-settings-burger-non ul li a{color:#68503C;} #user-settings-burger ul li a:hover{color:white;}

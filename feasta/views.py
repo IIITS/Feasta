@@ -1,6 +1,7 @@
 from django.views.generic.edit import FormView
 from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User
+from django.contrib.auth import login, logout
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from feasta.models import *
@@ -41,19 +42,57 @@ class Login(FormView):
 		return super(Login,self).dispatch(*args, **kwargs)
 	def get_context_data(self, **kwargs):
 			context = super(Login,self).get_context_data(**kwargs)
+			context['form']=self.form_class
 			return context
 
 class UnregisterView(FormView):
 	form_class = UnregisterForm
 	template_name = 'unregister.html'
+	def get_context_data(self, **kwargs):
+		context=super(UnregisterView,self).get_context_data(**kwargs)
+		context['form']=UnregisterForm
+		return context
+	def form_valid(self,form):
+		#form.cleaned_data[]
+		return super(UnregisterView,self).form_valid(form)
+	def form_invalid(self,form):	
+		return super(UnregisterView,self).form_invalid(form)
 class BulkUnregisterView(FormView):
 	form_class = BulkUnregisterForm
 	template_name = 'bulkunregister.html'
+	def get_context_data(self, **kwargs):
+		context=super(BulkUnregisterView,self).get_context_data(**kwargs)
+		context['form']=BulkUnregisterForm
+		return context
+	def form_valid(self,form):
+		#form.cleaned_data[]
+		return super(BulkUnregisterView,self).form_valid(form)
+	def form_invalid(self,form):	
+		return super(BulkUnregisterView,self).form_invalid(form)
 				
 class MenuView(TemplateView):
 	template_name = 'menu.html'
+	def get_context_data(self, **kwargs):
+		context=super(MenuView,self).get_context_data(**kwargs)
+
+
 class MyAccount(TemplateView):	
 	template_name = 'myaccount.html'
+	def get_context_data(self, **kwargs):
+		context=super(MyAccount,self).get_context_data(**kwargs)
+
+class EditProfile(FormView):
+	template_name = 'editprofile.html'
+	def get_context_data(self, **kwargs):
+		context = super(EditProfile,self).get_context_data(**kwargs)
 
 class ListForMeal(TemplateView):
 	template_name = 'listformeal.html'	
+	def get_context_data(self, **kwargs):
+		context=super(ListForMeal,self).get_context_data(**kwargs)
+
+def signout(request):
+	return HttpResponse(settings.LOGIN_URL)
+
+def changePassword(request):
+	return HttpResponse(settings.LOGIN_URL)	
