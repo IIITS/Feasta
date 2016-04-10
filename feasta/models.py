@@ -59,7 +59,7 @@ class Redemption(Model):
 	booked_by = ForeignKey(User)
 	booked_time = DateTimeField(auto_now_add=True)
 	meal = ForeignKey(Meal)
-	date = DateField()
+	date = DateField(db_index=True)
 	class Meta:
 		unique_together = (("booked_by","date","meal"))
 		index_together = (("date","meal"),("booked_by","meal"),("booked_by","date"))

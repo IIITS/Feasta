@@ -8,6 +8,7 @@ from feasta.models import *
 from feasta.config import *
 from feasta.forms import *
 from feasta import methods
+from django.utils.timezone import now
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.debug import sensitive_post_parameters
@@ -57,7 +58,13 @@ class UnregisterView(FormView):
 		context['user']=self.request.user
 		return context
 	def form_valid(self,form):
-		#form.cleaned_data[]
+		start_date = form.cleaned_data['start_date']
+		start_meal = form.cleaned_data['start_meal']
+		end_date = form.cleaned_data['end_date']
+		end_meal = form.cleaned_data['end_meal']
+		booked_by = self.request.user
+		booked_time = now()
+
 		return super(UnregisterView,self).form_valid(form)
 	def form_invalid(self,form):	
 		return super(UnregisterView,self).form_invalid(form)
@@ -69,9 +76,26 @@ class BulkUnregisterView(FormView):
 		context['form']=BulkUnregisterForm
 		context['session_end_days']=methods.getSessionEndDays()
 		context['user']=self.request.user
+		context['disabled_days']=getDisabledDays()
 		return context
 	def form_valid(self,form):
-		#form.cleaned_data[]
+		start_date = form.cleaned_data['start_date']
+		start_meal = form.cleaned_data['start_meal']
+		end_date = form.cleaned_data['end_date']
+		end_meal = form.cleaned_data['end_meal']
+		booked_by = self.request.user
+		booked_time = now()
+		try:
+			bulkbook = BulkRedemption(
+				booked_by= booked_by,
+				booked_time = booked_time,
+				startdate = start_date,
+				startmeal=start_meal,
+				enddate=end_date,
+				endmeal = end_meal
+			)
+		except IntegrityError as Error:
+			return HttpResponse('Booking Already made')	
 		return super(BulkUnregisterView,self).form_valid(form)
 	def form_invalid(self,form):	
 		return super(BulkUnregisterView,self).form_invalid(form)

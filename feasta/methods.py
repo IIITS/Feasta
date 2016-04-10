@@ -14,3 +14,13 @@ def currentSession():
 def getSessionEndDays():
 	days_left = (currentSession().enddate - now().date()).days
 	return days_left
+
+def getDisabledDays(user):
+	DATES = []
+	bulkreds = BulkRedemption.objects.filter(booked_by=user, enddate__lte=now().date)
+	reds = Redemption.objects.filter(booked_by=user, date__lte=now().date).order_by('-date')
+	#for b in bulkreds:
+
+	#for r in reds:
+
+	return DATES
