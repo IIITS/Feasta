@@ -15,6 +15,7 @@ class Home(TemplateView):
 	template_name = 'home.html'
 	def get_context_data(self,**kwargs):
 		context = super(Home, self).get_context_data(**kwargs)
+		context['user']=self.request.user
 		return context
 	@method_decorator(login_required)
 	def dispatch(self, *args, **kwargs):
@@ -51,6 +52,7 @@ class UnregisterView(FormView):
 	def get_context_data(self, **kwargs):
 		context=super(UnregisterView,self).get_context_data(**kwargs)
 		context['form']=UnregisterForm
+		context['user']=self.request.user
 		return context
 	def form_valid(self,form):
 		#form.cleaned_data[]
@@ -63,6 +65,7 @@ class BulkUnregisterView(FormView):
 	def get_context_data(self, **kwargs):
 		context=super(BulkUnregisterView,self).get_context_data(**kwargs)
 		context['form']=BulkUnregisterForm
+		context['user']=self.request.user
 		return context
 	def form_valid(self,form):
 		#form.cleaned_data[]
@@ -74,25 +77,26 @@ class MenuView(TemplateView):
 	template_name = 'menu.html'
 	def get_context_data(self, **kwargs):
 		context=super(MenuView,self).get_context_data(**kwargs)
+		context['user']=self.request.user
+		return context
 
 
 class MyAccount(TemplateView):	
 	template_name = 'myaccount.html'
 	def get_context_data(self, **kwargs):
 		context=super(MyAccount,self).get_context_data(**kwargs)
-
+		context['user']=self.request.user
+		return context
 class EditProfile(FormView):
 	template_name = 'editprofile.html'
 	def get_context_data(self, **kwargs):
 		context = super(EditProfile,self).get_context_data(**kwargs)
-
+		context['user']=self.request.user
+		return context
 class ListForMeal(TemplateView):
 	template_name = 'listformeal.html'	
 	def get_context_data(self, **kwargs):
 		context=super(ListForMeal,self).get_context_data(**kwargs)
-
-def signout(request):
-	return HttpResponse(settings.LOGIN_URL)
-
-def changePassword(request):
-	return HttpResponse(settings.LOGIN_URL)	
+		context['user']=self.request.user
+		return context
+	
