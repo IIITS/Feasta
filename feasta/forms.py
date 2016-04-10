@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm 
 from feasta.config import model_choices
+from feasta import methods
 class LoginForm(AuthenticationForm):
 	username = forms.CharField(
 		widget=forms.TextInput(
@@ -31,13 +32,15 @@ class UnregisterForm(forms.Form):
 	date = forms.DateField(
 		widget=forms.DateInput(
 			attrs={
-			    'class':'form-control'
+			    'class':'form-control',
+			    'id':'date'
 			}
 		))
 class BulkUnregisterForm(forms.Form):
 	start_date = forms.DateField(widget=forms.DateInput(
 			attrs={
-			    'class':'form-control'
+			    'class':'form-control',
+			    'id':'start'
 			}
 		))
 	start_meal = forms.CharField(
@@ -48,7 +51,8 @@ class BulkUnregisterForm(forms.Form):
 		))
 	end_date = forms.DateField(widget=forms.DateInput(
 			attrs={
-			    'class':'form-control'
+			    'class':'form-control',
+			    'id':'end'
 			}
 		))
 	end_meal = forms.CharField(

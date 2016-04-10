@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from feasta.models import *
 from feasta.config import *
 from feasta.forms import *
+from feasta import methods
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.debug import sensitive_post_parameters
@@ -52,6 +53,7 @@ class UnregisterView(FormView):
 	def get_context_data(self, **kwargs):
 		context=super(UnregisterView,self).get_context_data(**kwargs)
 		context['form']=UnregisterForm
+		context['session_end_days']=methods.getSessionEndDays()
 		context['user']=self.request.user
 		return context
 	def form_valid(self,form):
@@ -65,6 +67,7 @@ class BulkUnregisterView(FormView):
 	def get_context_data(self, **kwargs):
 		context=super(BulkUnregisterView,self).get_context_data(**kwargs)
 		context['form']=BulkUnregisterForm
+		context['session_end_days']=methods.getSessionEndDays()
 		context['user']=self.request.user
 		return context
 	def form_valid(self,form):

@@ -6,6 +6,15 @@
 
 {%endblock%}
 {% block main %}
+	<script type="text/javascript">
+    $(function() {
+      $("#date").datepicker({
+        dateFormat: 'yy-mm-dd',
+        minDate: 0,
+        maxDate: '+{{session_end_days}}D'
+      });
+    });
+  </script>
 	<div class="container-fluid content-wrapper">
 		<div class="feasta-content">
 			<h3>Not attending a meal? Unregister for the meal below</h3>
