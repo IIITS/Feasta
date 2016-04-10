@@ -5,7 +5,20 @@ a{color:white;} a:hover{cursor:pointer;}
     height: auto;
     margin-bottom: -40vh;
 }
-.feasta-abs{border:none;position:absolute;top:71vh;height:78px;left:60vw;border-radius:0px;padding:0px 20px;background:#7C603B;color:white;font-size:25px;}
+.feasta-abs{
+    border: medium none;
+position: absolute;
+top: 70%;
+height: 90px;
+left: 60vw;
+border-radius: 0px;
+padding: 0px 20px;
+background: #7C603B none repeat scroll 0% 0%;
+color: #FFF;
+font-size: 25px;
+border-top-right-radius: 25px;
+border-bottom-right-radius: 25px;
+}
 .feasta-blackfont{
     color:black !important;
 }
