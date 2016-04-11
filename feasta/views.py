@@ -12,6 +12,7 @@ from django.utils.timezone import now
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.debug import sensitive_post_parameters
+from django.db import IntegrityError
 
 class Home(TemplateView):
 	template_name = 'home.html'
@@ -51,38 +52,49 @@ class Login(FormView):
 class UnregisterView(FormView):
 	form_class = UnregisterForm
 	template_name = 'unregister.html'
+	success_url=settings.LOGIN_REDIRECT_URL
 	def get_context_data(self, **kwargs):
 		context=super(UnregisterView,self).get_context_data(**kwargs)
 		context['form']=UnregisterForm
 		context['session_end_days']=methods.getSessionEndDays()
 		context['user']=self.request.user
+		context['disabled_days']=methods.getDisabledDays(self.request.user)
 		return context
 	def form_valid(self,form):
-		start_date = form.cleaned_data['start_date']
-		start_meal = form.cleaned_data['start_meal']
-		end_date = form.cleaned_data['end_date']
-		end_meal = form.cleaned_data['end_meal']
+		date = form.cleaned_data['date']
+		meal = Meal.objects.get(name=form.cleaned_data['meal'])
+		
 		booked_by = self.request.user
 		booked_time = now()
-
+		try:
+			book = Redemption(
+				booked_by= booked_by,
+				booked_time = booked_time,
+				date=date,
+				meal=meal
+			)
+			book.save()
+		except IntegrityError as Error:
+			return HttpResponse('Booking Already made')
 		return super(UnregisterView,self).form_valid(form)
 	def form_invalid(self,form):	
 		return super(UnregisterView,self).form_invalid(form)
 class BulkUnregisterView(FormView):
 	form_class = BulkUnregisterForm
 	template_name = 'bulkunregister.html'
+	success_url=settings.LOGIN_REDIRECT_URL
 	def get_context_data(self, **kwargs):
 		context=super(BulkUnregisterView,self).get_context_data(**kwargs)
 		context['form']=BulkUnregisterForm
 		context['session_end_days']=methods.getSessionEndDays()
 		context['user']=self.request.user
-		context['disabled_days']=getDisabledDays()
+		context['disabled_days']=methods.getDisabledDays(self.request.user)
 		return context
 	def form_valid(self,form):
 		start_date = form.cleaned_data['start_date']
-		start_meal = form.cleaned_data['start_meal']
+		start_meal = Meal.objects.get(name=form.cleaned_data['start_meal'])
 		end_date = form.cleaned_data['end_date']
-		end_meal = form.cleaned_data['end_meal']
+		end_meal = Meal.objects.get(name=form.cleaned_data['end_meal'])
 		booked_by = self.request.user
 		booked_time = now()
 		try:
@@ -94,6 +106,7 @@ class BulkUnregisterView(FormView):
 				enddate=end_date,
 				endmeal = end_meal
 			)
+			bulkbook.save()
 		except IntegrityError as Error:
 			return HttpResponse('Booking Already made')	
 		return super(BulkUnregisterView,self).form_valid(form)
@@ -119,6 +132,23 @@ class EditProfile(FormView):
 	def get_context_data(self, **kwargs):
 		context = super(EditProfile,self).get_context_data(**kwargs)
 		context['user']=self.request.user
+		return context
+class MyProfile(TemplateView):
+	template_name = 'myprofile.html'
+	def get_context_data(self, **kwargs):
+		context = super(MyProfile,self).get_context_data(**kwargs)
+		context['user']=self.request.user
+		user_type = methods.getUserType(user)
+		context['user_type'] = user_type
+		if user_type == 'STUDENT':
+			try:
+				context['BF_NOT_EATEN'] = methods.getNotEaten(user)[0]
+				context['LUNCH_NOT_EATEN'] = methods.getNotEaten(user)[1]
+				context['DINNER_NOT_EATEN'] = methods.getNotEaten(user)[3]
+			except IndexError as Error:
+				context['BF_NOT_EATEN'] = "Not Available at the moment"
+				context['LUNCH_NOT_EATEN'] = "Not Available at the moment"
+				context['DINNER_NOT_EATEN'] = "Not Available at the moment"
 		return context
 class ListForMeal(TemplateView):
 	template_name = 'listformeal.html'	

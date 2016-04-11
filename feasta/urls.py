@@ -24,6 +24,9 @@ urlpatterns = [
 			url(r'^accounts/edit-profile/$', 
 				login_required(EditProfile.as_view())),
 
+			url(r'^accounts/profile/$', 
+				login_required(MyProfile.as_view())),
+
 			url(r'^getlist/today/$', 
 				login_required(ListForMeal.as_view())),
 
