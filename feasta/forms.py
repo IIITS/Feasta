@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm 
 from feasta.config import model_choices
 from feasta import methods
+from feasta.models import GuestAdd, SummerRegistration
 class LoginForm(AuthenticationForm):
 	username = forms.CharField(
 		widget=forms.TextInput(
@@ -119,6 +120,14 @@ class PasswordChangeForm(SetPasswordForm):
                 code='password_incorrect',
             )
         return old_password
-
+class SummerRegisterForm(forms.ModelForm):
+	class Meta:
+	        model = SummerRegistration
+        	exclude = ('booked_by','booked_time')
+class AddGuestForm(forms.ModelForm):
+	
+	class Meta:
+        	model = GuestAdd
+        	exclude = ('booked_by','booked_time')
 
 

@@ -35,19 +35,19 @@
   </script>
 	<div class="container-fluid content-wrapper">
 		<div class="feasta-content">
-			<h3>Not attending many meals? Bulk Unregister for the meals below</h3>
+			<h3>Not attending many meals? Mark Bulk Absent for the meals below</h3>
 			<div class="row">
 				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">	
 					<form class="form" method="post">
 						{% csrf_token %}
 						{{form.as_p}}
-						<input type="submit" class="feasta-btn" value="Unregister for the meals">
+						<input type="submit" class="feasta-btn" value="Absent for the meals">
 					</form>
 				</div>
 			</div>		
 			<div class="row">
 				<p>
-					For unregistering for only one meal try <a style="color:#D0A443;" href="/unregister/">Unregister</a>
+					For marking absent for only one meal try <a style="color:#D0A443;" href="/unregister/">Absent</a>
 				</p>
 			</div>
 		</div>

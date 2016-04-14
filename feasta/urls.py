@@ -41,5 +41,9 @@ urlpatterns = [
 				kwargs={'post_change_redirect':settings.LOGIN_URL,
 					    'template_name':'passwordchange.html',
 					    'password_change_form':PasswordChangeForm
-				})
+				}),
+			url(r'^register/summer/$',
+				login_required(SummerRegisterView.as_view())),
+			url(r'^add/guest/$',
+				login_required(AddGuestView.as_view())),
 		]

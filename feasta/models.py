@@ -24,7 +24,13 @@ class Meal(Model):
 	name = CharField(max_length=50, choices=model_choices['MEAL'])
 	starttime = TimeField(auto_now=False, auto_now_add=False)
 	endtime = TimeField(auto_now=False, auto_now_add=False)
-
+	def __str__(self):
+		return str(self.name)
+	def getname(self):
+		parse = {'BF':'Break Fast', 'L':'Lunch', 'D':'Dinner'}
+		return parse[self.name]
+	def getCode(self):
+		return self.name	
 class Mess(Model):
 	name = CharField(max_length=50)
 	vendors = TextField(default='NA')
@@ -63,3 +69,15 @@ class Redemption(Model):
 	class Meta:
 		unique_together = (("booked_by","date","meal"))
 		index_together = (("date","meal"),("booked_by","meal"),("booked_by","date"))
+
+class GuestAdd(Model):
+	booked_by=ForeignKey(User)
+	booked_time=DateTimeField(auto_now_add=True)
+	guest_name = CharField(max_length=100)
+	meal = ForeignKey(Meal)
+	day = DateField(editable=True)
+class SummerRegistration(Model):
+	booked_by=ForeignKey(User)
+	booked_time=DateTimeField(auto_now_add=True)
+	start_date = DateField(editable=True)
+	end_date = DateField(editable=True)

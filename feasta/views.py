@@ -13,6 +13,8 @@ from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.db import IntegrityError
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+NUM_PAG_MAX = 5
 
 class Home(TemplateView):
 	template_name = 'home.html'
@@ -137,23 +139,68 @@ class MyProfile(TemplateView):
 	template_name = 'myprofile.html'
 	def get_context_data(self, **kwargs):
 		context = super(MyProfile,self).get_context_data(**kwargs)
-		context['user']=self.request.user
+		user = self.request.user
+		context = {}
+		context['user']=user
 		user_type = methods.getUserType(user)
 		context['user_type'] = user_type
-		if user_type == 'STUDENT':
+		result=[]
+		if user_type == "STUDENT" :
 			try:
-				context['BF_NOT_EATEN'] = methods.getNotEaten(user)[0]
-				context['LUNCH_NOT_EATEN'] = methods.getNotEaten(user)[1]
-				context['DINNER_NOT_EATEN'] = methods.getNotEaten(user)[3]
+				not_eaten = methods.getNotEaten(user)
+				context['NUM_BF_NOT_EATEN'] = len(not_eaten[0])
+				context['NUM_LUNCH_NOT_EATEN'] = len(not_eaten[1])
+				context['NUM_DINNER_NOT_EATEN'] = len(not_eaten[2])
+				context['BF_NOT_EATEN'] = not_eaten[0]
+				context['LUNCH_NOT_EATEN'] = not_eaten[1]
+				context['DINNER_NOT_EATEN'] = not_eaten[2]
+				paginator = Paginator(not_eaten[3], NUM_PAG_MAX) 
+		                page = self.request.GET.get('page')
+    			
 			except IndexError as Error:
-				context['BF_NOT_EATEN'] = "Not Available at the moment"
-				context['LUNCH_NOT_EATEN'] = "Not Available at the moment"
-				context['DINNER_NOT_EATEN'] = "Not Available at the moment"
+				context['BF_NOT_EATEN'] = ["Not Available at the moment"]
+				context['LUNCH_NOT_EATEN'] = ["Not Available at the moment"]
+				context['DINNER_NOT_EATEN'] = ["Not Available at the moment"]
+			try:
+        			result = paginator.page(page)
+    			except PageNotAnInteger:
+        			result = paginator.page(1)
+    			except EmptyPage:
+        			result = paginator.page(paginator.num_pages)
+        	context['TOTAL_UNREGISTERED'] = result		
 		return context
+
 class ListForMeal(TemplateView):
 	template_name = 'listformeal.html'	
 	def get_context_data(self, **kwargs):
 		context=super(ListForMeal,self).get_context_data(**kwargs)
 		context['user']=self.request.user
 		return context
+class SummerRegisterView(FormView):
+    form_class = SummerRegisterForm
+    template_name = 'summer_register.html'
+    success_url=settings.LOGIN_REDIRECT_URL
 	
+    def form_valid(self, form):
+        reg = form.save(commit=false)
+        reg.booked_by = self.request.user
+        reg.save()
+        return HttpResponseRedirect(success_url)
+    def get_context_data(self, *args, **kwargs):
+    	context = super(SummerRegisterView, self).get_context_data(*args, **kwargs)
+    	context={'form',SummerRegisterForm}
+    	return context
+class AddGuestView(FormView):
+    form_class = AddGuestForm
+    template_name = 'add_guest.html'
+    success_url=settings.LOGIN_REDIRECT_URL
+	
+    def form_valid(self, form):
+        reg = form.save(commit=false)
+        reg.booked_by = self.request.user
+        reg.save()
+        return HttpResponseRedirect(success_url)
+    def get_context_data(self, *args, **kwargs):
+    	context = super(AddGuestView, self).get_context_data(*args, **kwargs)
+    	context={'form',AddGuestForm}
+    	return context
