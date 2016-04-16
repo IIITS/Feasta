@@ -52,23 +52,17 @@ class NonStudent(UserEntity,Model):
 	nstype = CharField(max_length=20, choices=model_choices['NON_STUDENT_TYPE'])
 	
 
-class BulkRedemption(Model):
-	booked_by=ForeignKey(User)
-	booked_time=DateTimeField(auto_now_add=True)
-	startdate = DateField(editable=True)
-	enddate = DateField(editable=True)
-	startmeal = ForeignKey(Meal, related_name='startmeal')
-	endmeal = ForeignKey(Meal, related_name = 'endmeal')
-	class Meta:
-		unique_together = (("booked_by","startdate","enddate"))
-class Redemption(Model):
-	booked_by = ForeignKey(User)
+
+class Absent(Model):
+	booked_by = ForeignKey(User,db_index=True)
 	booked_time = DateTimeField(auto_now_add=True)
-	meal = ForeignKey(Meal)
+	bf= BooleanField(default=False)
+	lunch=BooleanField(default=False)
+	dinner=BooleanField(default=False)
 	date = DateField(db_index=True)
 	class Meta:
-		unique_together = (("booked_by","date","meal"))
-		index_together = (("date","meal"),("booked_by","meal"),("booked_by","date"))
+		unique_together = (("booked_by","date"))
+		index_together = (("booked_by","date"))
 
 class GuestAdd(Model):
 	booked_by=ForeignKey(User)

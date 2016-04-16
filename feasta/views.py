@@ -8,10 +8,11 @@ from feasta.models import *
 from feasta.config import *
 from feasta.forms import *
 from feasta import methods
-from django.utils.timezone import now
+from django.utils.timezone import now, datetime as Date
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.debug import sensitive_post_parameters
+from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 NUM_PAG_MAX = 5
@@ -53,13 +54,12 @@ class Login(FormView):
 
 
 class MarkAbsentView(TemplateView):
-	template_name = 'bulkunregister.html'
+	template_name = 'mark_absent.html'
 	success_url=settings.LOGIN_REDIRECT_URL
 	def get_context_data(self, **kwargs):
-		context=super(BulkUnregisterView,self).get_context_data(**kwargs)
+		context=super(MarkAbsentView,self).get_context_data(**kwargs)
 		context['session_end_days']=methods.getSessionEndDays()
 		context['user']=self.request.user
-		context['disabled_days']=methods.getDisabledDays(self.request.user)
 		return context
 	
 				
@@ -96,12 +96,12 @@ class MyProfile(TemplateView):
 		if user_type == "STUDENT" :
 			try:
 				not_eaten = methods.getNotEaten(user)
-				context['NUM_BF_NOT_EATEN'] = len(not_eaten[0])
-				context['NUM_LUNCH_NOT_EATEN'] = len(not_eaten[1])
-				context['NUM_DINNER_NOT_EATEN'] = len(not_eaten[2])
-				context['BF_NOT_EATEN'] = not_eaten[0]
-				context['LUNCH_NOT_EATEN'] = not_eaten[1]
-				context['DINNER_NOT_EATEN'] = not_eaten[2]
+				context['NUM_BF_NOT_EATEN'] = len(not_eaten['bf'])
+				context['NUM_LUNCH_NOT_EATEN'] = len(not_eaten['lunch'])
+				context['NUM_DINNER_NOT_EATEN'] = len(not_eaten['dinner'])
+				context['BF_NOT_EATEN'] = not_eaten['bf']
+				context['LUNCH_NOT_EATEN'] = not_eaten['lunch']
+				context['DINNER_NOT_EATEN'] = not_eaten['dinner']
 				paginator = Paginator(not_eaten[3], NUM_PAG_MAX) 
 		                page = self.request.GET.get('page')
     			
@@ -175,3 +175,11 @@ class PickDatesView(FormView):
     	context = super(PickDatesView, self).get_context_data(*args, **kwargs)
     	context={'form':AddGuestForm}
     	return context
+@csrf_exempt
+def markAbsent(request):
+	d = int(request.POST['d'])
+	m = int(request.POST['m'])
+	y = int("20"+str(request.POST['y']))
+	date = Date(day=d,month=m,year=y,tzinfo=now().tzinfo)
+	print date
+	return HttpResponse('Marked Absent')

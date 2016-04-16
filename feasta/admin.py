@@ -8,7 +8,6 @@ admin.site.register(Mess)
 admin.site.register(Vendor)
 admin.site.register(Student)
 admin.site.register(NonStudent)
-admin.site.register(BulkRedemption)
-admin.site.register(Redemption)
+admin.site.register(Absent)
 
 

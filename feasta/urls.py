@@ -15,6 +15,9 @@ urlpatterns = [
 			url(r'^mark/absent/$', 
 				login_required(MarkAbsentView.as_view())),
 
+			url(r'^submit/mark/absent/$', 
+				login_required(markAbsent)),
+
 			url(r'^menu/$', 
 				login_required(MenuView.as_view())),
 
@@ -44,7 +47,7 @@ urlpatterns = [
 
 			url(r'^add/guest/$',
 				login_required(AddGuestView.as_view())),
-			
+
 			url(r'^pickdates/$',
 				login_required(PickDatesView.as_view())),
 		]

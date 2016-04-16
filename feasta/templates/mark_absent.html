@@ -5,7 +5,6 @@
 {% block iconspan %}{%endblock%}
 {% block main %}
 	<script type="text/javascript">
-		var disabledDays = {{disabled_days|safe}};
 		function setDisabled(date) {
 			var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
 			for (i = 0; i < disabledDays.length; i++) {
@@ -19,11 +18,21 @@
 			
 			return  setDisabled(date) 
 		}
+		function markAbsent(d,m,y){
+			alert(String(date));
+			$.post("/submit/mark/absent/", 
+				{
+					d:d, m:m, y:y
+
+				},function(result){
+       			 $("#notify").html(result);
+    		});
+		}
 
 		$(function() {
 			$('#pp').hide();
     		$("#dates").feastaMultiDate({
-        		dateFormat: 'd/m/y',
+        		dateFormat: 'd-m-y',
        			minDate: 0,
         		maxDate: '+{{session_end_days}}D',
       			onSelect:function(){
@@ -31,7 +40,11 @@
 	    	  		var dates = $('#dates').feastaMultiDate('getDates','string');
 	    	  		var K = new Array();
     				for (var i = 0; i<=dates.length - 1;  i++) {
-    					var k= "<div class=\"meal-select-instance\">"+dates[i]+"<form onsubmit=\"\"><input type=\"checkbox\" name=\""+dates[i]+"\" value=\"BF\">Break Fast<input type=\"checkbox\" name=\""+dates[i]+"\" value=\"L\"> Lunch<input type=\"checkbox\" name=\""+dates[i]+"\" value=\"D\">Dinner&nbsp;&nbsp;<input class=\"feasta-btn feasta-btn-mark\" type=\"submit\" value=\"Mark Absent\"></form></div>"
+    					date = dates[i].split('-');
+    					d=date[0];
+    					m=date[1];
+    					y=date[2];
+    					var k= "<div class=\"meal-select-instance\">"+dates[i]+"<form onsubmit=\"markAbsent("+d+","+m+","+y+")\">{% csrf_token %}<input type=\"checkbox\" name=\""+dates[i]+"\" value=\"BF\">Break Fast<input type=\"checkbox\" name=\""+dates[i]+"\" value=\"L\"> Lunch<input type=\"checkbox\" name=\""+dates[i]+"\" value=\"D\">Dinner&nbsp;&nbsp;<input class=\"feasta-btn feasta-btn-mark\" type=\"submit\" value=\"Mark Absent\"></form></div>"
     					K.push(k);	
     				}
     				document.getElementById('meals-select').innerHTML="";
@@ -56,6 +69,9 @@
 				<div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
 					
 					<div id="meals-select">
+						
+					</div>
+					<div id="#notify">
 						
 					</div>
 				</div>

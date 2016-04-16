@@ -20,31 +20,6 @@ class LoginForm(AuthenticationForm):
 			'placeholder':'Enter your password'
 			}
 		))
-	
-
-class UnregisterForm(forms.Form):
-	meal = forms.CharField(
-			widget=forms.Select(choices=model_choices['MEAL'],
-			attrs={
-				'class':'form-control feasta-blackfont',
-			}
-		))
-
-	date = forms.DateField(
-		widget=forms.DateInput(
-			attrs={
-			    'class':'form-control',
-			    'id':'date'
-			}
-		))
-class BulkUnregisterForm(forms.Form):
-	pick_dates = forms.DateField(widget=forms.DateInput(
-			attrs={
-			    'class':'form-control',
-			    'id':'dates'
-			}
-		))
-	
 
 class SetPasswordForm(forms.Form):
     error_messages = {
@@ -108,7 +83,6 @@ class SummerRegisterForm(forms.ModelForm):
 	        model = SummerRegistration
         	exclude = ('booked_by','booked_time')
 class AddGuestForm(forms.ModelForm):
-	
 	class Meta:
         	model = GuestAdd
         	exclude = ('booked_by','booked_time')
