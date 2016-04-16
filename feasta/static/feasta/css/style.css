@@ -1,9 +1,7 @@
 a{color:white;} a:hover{cursor:pointer;}
 .btn-white{color:#101010;background:white;}
-.content-wrapper{background: #101010;
-    min-height: 20vh;
-    height: auto;
-    margin-bottom: -40vh;
+.content-wrapper{background: #101010;min-height: 20vh;height: auto;
+    margin-bottom: -30vh;
 }
 
 .feasta-abs{
@@ -20,6 +18,7 @@ font-size: 25px;
 border-top-right-radius: 25px;
 border-bottom-right-radius: 25px;
 }
+.feasta-announce{color: white; font-size: 22px;}
 .feasta-blackfont{
     color:black !important;
 }
@@ -30,7 +29,20 @@ border-bottom-right-radius: 25px;
     border: none;
     padding: 10px 2px;
     font-variant: small-caps;
-    font-weight: bold;}
+    font-weight: bold;
+}
+.feasta-btn-announce{
+    width:auto !important;
+    padding: 10px 12px !important;
+    margin-bottom: 15px !important;
+}
+.feasta-btn-mark{
+    width: auto !important;
+    padding:  2px 5px !important;
+    margin-bottom: 15px !important;
+    display: inline-block;
+    background: green;
+}
 .feasta-center{margin:0px 33vw 10px 33vw;width:33vw;}
 .feasta-content{    min-height: 50vh;
     width: 70%;
@@ -42,13 +54,15 @@ border-bottom-right-radius: 25px;
     z-index: 3000;
     height: auto;
     color: white;}
-
+.feasta-container{
+    background: #101010;
+}
 .feasta-mar{margin-top:4vh;}
 .feasta-navbar{background-color:white;opacity: 0.6;color:black;margin-top:-10vh;height:10vh;padding-top: 2vh;padding-bottom:2vh;}
-.feasta-navbar ul li{display: inline;margin: 0px 15px;font-size: 22px;font-weight: bold;}
+.feasta-navbar ul li{display: inline;margin: 0px 15px;font-size: 20px;font-weight: bold;}
 .feasta-navbar ul li a{color:#101010;}
 .feasta-navbar-fixed-top{position:absolute;background-color:white;opacity: 0.6;color:black;width:100%;margin-top:-60vh;height:10vh;padding-top: 2vh;padding-bottom:2vh;}
-.feasta-navbar-fixed-top ul li{display: inline;margin: 0px 15px;font-size: 22px;font-weight: bold;}
+.feasta-navbar-fixed-top ul li{display: inline;margin: 0px 15px;font-size: 20px;font-weight: bold;}
 .feasta-navbar-fixed-top ul li a{color:#101010;}
 .feasta-stats{background: #101010;height:30vh;color: #D0A443;}
 .feasta-stats ul li{display: inline;list-style: none; font-size: 25px; color:white;padding:30px;}
@@ -59,6 +73,12 @@ border-bottom-right-radius: 25px;
 .header-logo{font-size: 60px;font-variant:small-caps;color:white;font-weight:bold;padding:10vh 0vh 0vh 0vh;margin-left:20vh;}
 .header-logo-sub{color:white;margin-left:19vh;font-variant:small-caps;}
 .icon-span{color:white;float:right; padding:15px;} .icon-span a{color:white;}
+.meal-select-instance{
+    background: white;
+    color: green;
+    padding: 5px;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)!important;
+    margin-bottom: 2px;
+}
 .nav-burger{position: absolute; z-index: 200;
     z-index: 200;
     left: 92vw;
@@ -98,48 +118,46 @@ border-bottom-right-radius: 25px;
 #user-settings-burger-non ul li a{color:#68503C;} #user-settings-burger ul li a:hover{color:white;}
 
 /********Date Picker CSS *****************/
-#jquery-script-menu {
-position: fixed;
-height: 90px;
-width: 100%;
-top: 0;
-left: 0;
-border-top: 5px solid #316594;
-background: #fff;
--moz-box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.16);
--webkit-box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.16);
-box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.16);
-z-index: 999999;
-padding: 10px 0;
--webkit-box-sizing:content-box;
--moz-box-sizing:content-box;
-box-sizing:content-box;
-}
-
-.jquery-script-center {
-width: 960px;
-margin: 0 auto;
-}
-.jquery-script-center ul {
-width: 212px;
-float:left;
-line-height:45px;
-margin:0;
-padding:0;
-list-style:none;
-}
-.jquery-script-center a {
-    text-decoration:none;
-}
-.jquery-script-ads {
-width: 728px;
-height:90px;
-float:right;
-}
-.jquery-script-clear {
-clear:both;
-height:0;
-}
+table.ui-datepicker-calendar {border-collapse: separate;}
+.ui-datepicker-calendar td {border: 1px solid transparent;}
 .ui-icon {
     background-image: url("../images/ui-icons_a8a3ae_256x240.png") !important;
-/********DatePicker CSS ends here*********/
+}
+.ui-datepicker .ui-datepicker-calendar .ui-state-highlight a {
+    background: #743620 none; 
+    color: white;
+}
+
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
+    border-bottom-right-radius: 0px;
+}
+
+.ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl {
+    border-bottom-left-radius: 0px;
+}
+.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr {
+    border-top-right-radius: 0px;
+}
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl {
+    border-top-left-radius: 0px;
+}
+.ui-widget-header {
+    border: 1px solid #231d2b;
+    background: #FFF !important;
+    color: #101010 !important;
+    font-weight: bold;
+}
+.ui-widget-content {
+    border: 1px solid #7e7783;
+    background: #101010;
+    color: white;
+}
+.ui-datepicker td span, .ui-datepicker td a{
+padding: 0.3em;
+}    
+#meals-select{
+    overflow-y:scroll; 
+    max-height:290px;
+    background: #101010;
+    padding: 2px;
+}

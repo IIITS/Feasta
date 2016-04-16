@@ -12,11 +12,8 @@ urlpatterns = [
 			url(r'^accounts/login/$', 
 				Login.as_view()),
 
-			url(r'^unregister/$', 
-				login_required(UnregisterView.as_view())),
-
-			url(r'^bulkunregister/$', 
-				login_required(BulkUnregisterView.as_view())),
+			url(r'^mark/absent/$', 
+				login_required(MarkAbsentView.as_view())),
 
 			url(r'^menu/$', 
 				login_required(MenuView.as_view())),
@@ -44,6 +41,10 @@ urlpatterns = [
 				}),
 			url(r'^register/summer/$',
 				login_required(SummerRegisterView.as_view())),
+
 			url(r'^add/guest/$',
 				login_required(AddGuestView.as_view())),
+			
+			url(r'^pickdates/$',
+				login_required(PickDatesView.as_view())),
 		]

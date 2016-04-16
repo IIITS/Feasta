@@ -38,30 +38,13 @@ class UnregisterForm(forms.Form):
 			}
 		))
 class BulkUnregisterForm(forms.Form):
-	start_date = forms.DateField(widget=forms.DateInput(
+	pick_dates = forms.DateField(widget=forms.DateInput(
 			attrs={
 			    'class':'form-control',
-			    'id':'start'
+			    'id':'dates'
 			}
 		))
-	start_meal = forms.CharField(
-			widget=forms.Select(choices=model_choices['MEAL'],
-			attrs={
-				'class':'form-control feasta-blackfont',
-			}
-		))
-	end_date = forms.DateField(widget=forms.DateInput(
-			attrs={
-			    'class':'form-control',
-			    'id':'end'
-			}
-		))
-	end_meal = forms.CharField(
-			widget=forms.Select(choices=model_choices['MEAL'],
-			attrs={
-				'class':'form-control feasta-blackfont',
-			}
-		))
+	
 
 class SetPasswordForm(forms.Form):
     error_messages = {

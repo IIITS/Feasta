@@ -51,69 +51,17 @@ class Login(FormView):
 			context['form']=self.form_class
 			return context
 
-class UnregisterView(FormView):
-	form_class = UnregisterForm
-	template_name = 'unregister.html'
-	success_url=settings.LOGIN_REDIRECT_URL
-	def get_context_data(self, **kwargs):
-		context=super(UnregisterView,self).get_context_data(**kwargs)
-		context['form']=UnregisterForm
-		context['session_end_days']=methods.getSessionEndDays()
-		context['user']=self.request.user
-		context['disabled_days']=methods.getDisabledDays(self.request.user)
-		return context
-	def form_valid(self,form):
-		date = form.cleaned_data['date']
-		meal = Meal.objects.get(name=form.cleaned_data['meal'])
-		
-		booked_by = self.request.user
-		booked_time = now()
-		try:
-			book = Redemption(
-				booked_by= booked_by,
-				booked_time = booked_time,
-				date=date,
-				meal=meal
-			)
-			book.save()
-		except IntegrityError as Error:
-			return HttpResponse('Booking Already made')
-		return super(UnregisterView,self).form_valid(form)
-	def form_invalid(self,form):	
-		return super(UnregisterView,self).form_invalid(form)
-class BulkUnregisterView(FormView):
-	form_class = BulkUnregisterForm
+
+class MarkAbsentView(TemplateView):
 	template_name = 'bulkunregister.html'
 	success_url=settings.LOGIN_REDIRECT_URL
 	def get_context_data(self, **kwargs):
 		context=super(BulkUnregisterView,self).get_context_data(**kwargs)
-		context['form']=BulkUnregisterForm
 		context['session_end_days']=methods.getSessionEndDays()
 		context['user']=self.request.user
 		context['disabled_days']=methods.getDisabledDays(self.request.user)
 		return context
-	def form_valid(self,form):
-		start_date = form.cleaned_data['start_date']
-		start_meal = Meal.objects.get(name=form.cleaned_data['start_meal'])
-		end_date = form.cleaned_data['end_date']
-		end_meal = Meal.objects.get(name=form.cleaned_data['end_meal'])
-		booked_by = self.request.user
-		booked_time = now()
-		try:
-			bulkbook = BulkRedemption(
-				booked_by= booked_by,
-				booked_time = booked_time,
-				startdate = start_date,
-				startmeal=start_meal,
-				enddate=end_date,
-				endmeal = end_meal
-			)
-			bulkbook.save()
-		except IntegrityError as Error:
-			return HttpResponse('Booking Already made')	
-		return super(BulkUnregisterView,self).form_valid(form)
-	def form_invalid(self,form):	
-		return super(BulkUnregisterView,self).form_invalid(form)
+	
 				
 class MenuView(TemplateView):
 	template_name = 'menu.html'
@@ -186,9 +134,11 @@ class SummerRegisterView(FormView):
         reg.booked_by = self.request.user
         reg.save()
         return HttpResponseRedirect(success_url)
+    def form_invalid(self, form):
+    	return super(SummerRegisterView,self).form_invalid(form)    
     def get_context_data(self, *args, **kwargs):
     	context = super(SummerRegisterView, self).get_context_data(*args, **kwargs)
-    	context={'form',SummerRegisterForm}
+    	context={'form':SummerRegisterForm}
     	return context
 class AddGuestView(FormView):
     form_class = AddGuestForm
@@ -196,11 +146,32 @@ class AddGuestView(FormView):
     success_url=settings.LOGIN_REDIRECT_URL
 	
     def form_valid(self, form):
+    	reg=form.save()
         reg = form.save(commit=false)
         reg.booked_by = self.request.user
         reg.save()
         return HttpResponseRedirect(success_url)
+    def form_invalid(self, form):
+    	return super(AddGuestView,self).form_invalid(form)    
     def get_context_data(self, *args, **kwargs):
     	context = super(AddGuestView, self).get_context_data(*args, **kwargs)
-    	context={'form',AddGuestForm}
+    	context={'form':AddGuestForm}
+    	return context
+    	
+class PickDatesView(FormView):    	
+    form_class = AddGuestForm
+    template_name = 'add_guest.html'
+    success_url=settings.LOGIN_REDIRECT_URL
+	
+    def form_valid(self, form):
+    	reg=form.save()
+        reg = form.save(commit=false)
+        reg.booked_by = self.request.user
+        reg.save()
+        return HttpResponseRedirect(success_url)
+    def form_invalid(self, form):
+    	return super(PickDatesView,self).form_invalid(form)    
+    def get_context_data(self, *args, **kwargs):
+    	context = super(PickDatesView, self).get_context_data(*args, **kwargs)
+    	context={'form':AddGuestForm}
     	return context

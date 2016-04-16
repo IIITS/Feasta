@@ -81,3 +81,8 @@ class SummerRegistration(Model):
 	booked_time=DateTimeField(auto_now_add=True)
 	start_date = DateField(editable=True)
 	end_date = DateField(editable=True)
+
+class SummerRegistrationPickDates(Model):
+	booked_by=ForeignKey(User)
+	booked_time=DateTimeField(auto_now_add=True)
+	dates = TextField()

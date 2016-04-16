@@ -21,35 +21,46 @@
 		}
 
 		$(function() {
-    		$("#start").datepicker({
-        		dateFormat: 'yy-mm-dd',
-        		minDate: 0,
-        		maxDate: '+12M'
-      		});
-      		$("#end").datepicker({
-        		dateFormat: 'yy-mm-dd',
-        		minDate: 0,
-        		maxDate: '+{{session_end_days}}D'
-      		});
+			$('#pp').hide();
+    		$("#dates").feastaMultiDate({
+        		dateFormat: 'd/m/y',
+       			minDate: 0,
+        		maxDate: '+{{session_end_days}}D',
+      			onSelect:function(){
+      				$('#pp').show();
+	    	  		var dates = $('#dates').feastaMultiDate('getDates','string');
+	    	  		var K = new Array();
+    				for (var i = 0; i<=dates.length - 1;  i++) {
+    					var k= "<div class=\"meal-select-instance\">"+dates[i]+"<form onsubmit=\"\"><input type=\"checkbox\" name=\""+dates[i]+"\" value=\"BF\">Break Fast<input type=\"checkbox\" name=\""+dates[i]+"\" value=\"L\"> Lunch<input type=\"checkbox\" name=\""+dates[i]+"\" value=\"D\">Dinner&nbsp;&nbsp;<input class=\"feasta-btn feasta-btn-mark\" type=\"submit\" value=\"Mark Absent\"></form></div>"
+    					K.push(k);	
+    				}
+    				document.getElementById('meals-select').innerHTML="";
+    				for(var i=0; i<K.length; i++){
+    					document.getElementById('meals-select').innerHTML+=K[i];
+    				}	
+    			}
+    		});    	
     	});
+
+      		
   </script>
 	<div class="container-fluid content-wrapper">
 		<div class="feasta-content">
-			<h3>Not attending many meals? Mark Bulk Absent for the meals below</h3>
 			<div class="row">
-				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">	
-					<form class="form" method="post">
-						{% csrf_token %}
-						{{form.as_p}}
-						<input type="submit" class="feasta-btn" value="Absent for the meals">
-					</form>
+				<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">	
+					<div id="dates">
+						
+					</div>
+					<p id="pp">Choose meals you prefer to mark absent for selected dates on the right</p>
+				</div>
+				<div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+					
+					<div id="meals-select">
+						
+					</div>
 				</div>
 			</div>		
-			<div class="row">
-				<p>
-					For marking absent for only one meal try <a style="color:#D0A443;" href="/unregister/">Absent</a>
-				</p>
-			</div>
+			
 		</div>
 	</div>
 {% endblock %}
