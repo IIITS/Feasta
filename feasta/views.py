@@ -17,6 +17,14 @@ from django.db import IntegrityError
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 NUM_PAG_MAX = 5
 
+
+# Create your views here.
+def not_found(request):
+	return render(request, '404.html', status=404)
+
+def home(request):
+	return render(request, 'theme.html')
+
 class Home(TemplateView):
 	template_name = 'home.html'
 	def get_context_data(self,**kwargs):
