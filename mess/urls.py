@@ -21,6 +21,6 @@ from feasta import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.not_found),
+    url(r'^$', views.home),
     url(r'.*', views.not_found),
 ]
